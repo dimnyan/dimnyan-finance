@@ -28,8 +28,10 @@ const PersonalFinance = () => {
 
 
           {/* ===== 1. Budgeting Basics ===== */}
-          <Divider id="tools" orientation="horizontal">
-            <Space><WalletOutlined/> Budgeting Basics</Space>
+          <Divider orientation="horizontal">
+            <div id="tools">
+              <Space><WalletOutlined/> Budgeting Basics</Space>
+            </div>
           </Divider>
 
           <Row gutter={[24, 24]}>
@@ -58,8 +60,10 @@ const PersonalFinance = () => {
           </Paragraph>
 
           {/* ===== 2. Debt Management ===== */}
-          <Divider id="debt" orientation="horizontal">
-            <Space><CreditCardOutlined/> Debt Management</Space>
+          <Divider orientation="horizontal">
+            <div id="debt">
+              <Space><CreditCardOutlined/> Debt Management</Space>
+            </div>
           </Divider>
 
           <Row gutter={[16, 16]}>
@@ -91,10 +95,13 @@ const PersonalFinance = () => {
           </Row>
 
           {/* ===== 3. Emergency Fund ===== */}
-          <Divider id="emergency" orientation="horizontal">
-            <Space>
-              <BankOutlined />
-              Emergency Fund</Space>
+          <Divider orientation="horizontal">
+            <div id="emergency">
+              <Space>
+                <BankOutlined/>
+                Emergency Fund
+              </Space>
+            </div>
           </Divider>
 
           <Card>
@@ -112,8 +119,10 @@ const PersonalFinance = () => {
           </Card>
 
           {/* ===== 4. Financial Goal Setting ===== */}
-          <Divider id="goals" orientation="horizontal">
-            <Space><FlagOutlined/> Financial Goal Setting (SMART Framework)</Space>
+          <Divider orientation="horizontal">
+            <div id="goals">
+              <Space><FlagOutlined/> Financial Goal Setting (SMART Framework)</Space>
+            </div>
           </Divider>
 
           <Row gutter={[24, 24]}>
@@ -127,7 +136,8 @@ const PersonalFinance = () => {
                 <Title level={5}>Examples:</Title>
                 <ul>
                   <li>Bad: “Save more money”</li>
-                  <li>Good: “Save $10,000 for a house down payment by Dec 31, 2027 by auto-transferring $300/paycheck”</li>
+                  <li>Good: “Save $10,000 for a house down payment by Dec 31, 2027 by auto-transferring $300/paycheck”
+                  </li>
                 </ul>
               </Card>
             </Col>
@@ -222,7 +232,7 @@ const PersonalFinance = () => {
             //   href: '#tools',
             //   title: 'Free Tools & Downloads',
             // }
-            ]}
+          ]}
         />
       </Col>
     </Row>
