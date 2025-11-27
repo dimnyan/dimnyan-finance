@@ -5,18 +5,17 @@ import {Layout, Menu, MenuProps, theme} from 'antd';
 import {menus} from "../variable/menus";
 import {usePathname} from 'next/navigation';
 import {useEffect, useState} from 'react';
-import {LaptopOutlined, NotificationOutlined, UserOutlined} from "@ant-design/icons";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 interface Props {
   children?: React.ReactNode;
 }
 
-function currentPageIndexing(sidebar, pathname: string) {
+function currentPageIndexing(sidebar:MenuProps['items'], pathname: string) {
   const x: string[] = []
   sidebar?.map((item) => {
-    if (item.key === pathname) {
+    if (item?.key === pathname) {
       x.push(item.key)
     }
   })
