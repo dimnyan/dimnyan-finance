@@ -31,6 +31,10 @@ export const menus: MenuProps['items'] = [
       {
         key: "Financial Accounting",
         label: <a href={"/financial-accounting"}>Financial Accounting & Statement Analysis</a>,
+      },
+      {
+        key: "Economics",
+        label: <a href={"/economics"}>Economics</a>,
       }
     ]
   },
