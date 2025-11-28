@@ -7,7 +7,6 @@ import {
   Space,
   Anchor,
   Table,
-  Tag,
   Tabs,
   Alert,
   Timeline,
@@ -18,7 +17,6 @@ import {
   BarChartOutlined,
   CalculatorOutlined,
   DollarOutlined,
-  DownloadOutlined,
   AlertOutlined,
 } from '@ant-design/icons';
 
@@ -253,7 +251,7 @@ const FinancialAccounting = () => {
             { key: 'cashflow', href: '#cashflow', title: 'Cash Flow Statement' },
             { key: 'ratios', href: '#ratios', title: 'Financial Ratios' },
             { key: 'redflags', href: '#redflags', title: 'Red Flags' },
-            { key: 'downloads', href: '#downloads', title: 'Free Templates' },
+            // { key: 'downloads', href: '#downloads', title: 'Free Templates' },
           ]}
         />
       </Col>
