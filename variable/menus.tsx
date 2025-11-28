@@ -15,6 +15,10 @@ export const menus: MenuProps['items'] = [
       {
         key: "Personal Finance & Budgeting",
         label: <a href={"/personal-finance"}>Personal Finance & Budgeting</a>,
+      },
+      {
+        key: "Investing",
+        label: <a href={"/investing"}>Investing</a>,
       }
     ]
   },
