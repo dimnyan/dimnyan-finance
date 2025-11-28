@@ -1,11 +1,11 @@
 import {MenuProps} from "antd";
-import {HomeOutlined} from "@ant-design/icons";
+// import {HomeOutlined} from "@ant-design/icons";
 
 export const menus: MenuProps['items'] = [
   {
     key: "/",
     label: <a href={"/"}>Home</a>,
-    icon: <HomeOutlined />,
+    // icon: <HomeOutlined />,
   },
   {
     key: "/core-content",
@@ -19,6 +19,10 @@ export const menus: MenuProps['items'] = [
       {
         key: "Investing",
         label: <a href={"/investing"}>Investing</a>,
+      },
+      {
+        key: "Crypto",
+        label: <a href={"/crypto"}>Cryptocurrency & Blockchain</a>,
       }
     ]
   },
