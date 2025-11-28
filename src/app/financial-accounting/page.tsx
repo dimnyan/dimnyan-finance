@@ -34,11 +34,11 @@ const FinancialAccounting = () => {
   ];
 
   const ratioCategories = [
-    { category: 'Profitability', ratios: 'Gross Margin, Operating Margin, Net Margin, ROE, ROA, ROIC' },
-    { category: 'Liquidity', ratios: 'Current Ratio, Quick Ratio, Cash Ratio' },
-    { category: 'Solvency/Leverage', ratios: 'Debt/Equity, Debt/EBITDA, Interest Coverage' },
-    { category: 'Efficiency', ratios: 'Asset Turnover, Inventory Days, Receivables Days, Payables Days' },
-    { category: 'Valuation', ratios: 'P/E, P/B, EV/EBITDA, PEG, Dividend Yield' },
+    { key: '1',category: 'Profitability', ratios: 'Gross Margin, Operating Margin, Net Margin, ROE, ROA, ROIC' },
+    { key: '2',category: 'Liquidity', ratios: 'Current Ratio, Quick Ratio, Cash Ratio' },
+    { key: '3',category: 'Solvency/Leverage', ratios: 'Debt/Equity, Debt/EBITDA, Interest Coverage' },
+    { key: '4',category: 'Efficiency', ratios: 'Asset Turnover, Inventory Days, Receivables Days, Payables Days' },
+    { key: '5',category: 'Valuation', ratios: 'P/E, P/B, EV/EBITDA, PEG, Dividend Yield' },
   ];
 
   return (
@@ -77,16 +77,16 @@ const FinancialAccounting = () => {
           <Card>
             <Timeline
               items={[
-                { children: 'Revenue (Sales)' },
-                { children: '− Cost of Goods Sold (COGS) → Gross Profit' },
-                { children: '− Operating Expenses (SG&A, R&D) → Operating Income (EBIT)' },
-                { children: '± Other Income/Expense → Pre-tax Income' },
-                { children: '− Taxes → Net Income' },
-                { children: '− Preferred Dividends → Earnings Available to Common → EPS' },
+                { content: 'Revenue (Sales)' },
+                { content: '− Cost of Goods Sold (COGS) → Gross Profit' },
+                { content: '− Operating Expenses (SG&A, R&D) → Operating Income (EBIT)' },
+                { content: '± Other Income/Expense → Pre-tax Income' },
+                { content: '− Taxes → Net Income' },
+                { content: '− Preferred Dividends → Earnings Available to Common → EPS' },
               ]}
             />
             <Alert
-              message="Pro Tip: Always look at both Gross Margin and Operating Margin trends — they tell you if the real health of the business model."
+              title="Pro Tip: Always look at both Gross Margin and Operating Margin trends — they tell you if the real health of the business model."
               type="info"
               showIcon
               style={{ marginTop: 24 }}
