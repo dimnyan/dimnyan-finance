@@ -23,6 +23,10 @@ export const menus: MenuProps['items'] = [
       {
         key: "Crypto",
         label: <a href={"/crypto"}>Cryptocurrency & Blockchain</a>,
+      },
+      {
+        key: "Corporate Finance",
+        label: <a href={"/corporate-finance"}>Corporate Finance & Valuation</a>,
       }
     ]
   },
