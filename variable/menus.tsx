@@ -4,7 +4,7 @@ import {HomeOutlined} from "@ant-design/icons";
 export const menus: MenuProps['items'] = [
   {
     key: "/",
-    label: "Home",
+    label: <a href={"/"}>Home</a>,
     icon: <HomeOutlined />,
   },
   {
