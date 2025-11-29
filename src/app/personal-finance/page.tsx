@@ -222,9 +222,9 @@ const PersonalFinance = () => {
                   <Col xs={24} md={12}>
                     <Title level={4}>Best Places in 2025 (4–5.3% APY)</Title>
                     <ul>
-                      <li>Ally Bank • Marcus • SoFi • Capital One 360</li>
-                      <li>Treasury Bills (via TreasuryDirect.gov)</li>
-                      <li>High-Yield Money Market Funds (VMFXX, SPRXX)</li>
+                      <li>• Ally Bank • Marcus • SoFi • Capital One 360</li>
+                      <li>• Treasury Bills (via TreasuryDirect.gov)</li>
+                      <li>• High-Yield Money Market Funds (VMFXX, SPRXX)</li>
                       <li>✅ Safe, liquid, and earning interest.</li>
                     </ul>
                   </Col>
