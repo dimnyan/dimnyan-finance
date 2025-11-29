@@ -60,7 +60,7 @@ const Home = () => {
         <Title level={1} style={{ color: 'white', fontSize: '56px', marginBottom: 24 }}>
           Master Finance.<br />Completely Free. Forever.
         </Title>
-        <Paragraph style={{ fontSize: '22px', color: 'rgba(255,255,255,0.9)', maxWidth: '800px', margin: '0 auto 40px 40px' }}>
+        <Paragraph style={{ fontSize: '22px', color: 'rgba(255,255,255,0.9)', maxWidth: '800px', margin: '0 auto 40px'}}>
           Professional-grade courses on personal finance, investing, crypto, valuation, accounting & economics —
           with free Excel templates and zero ads.
         </Paragraph>
