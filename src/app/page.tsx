@@ -1,13 +1,13 @@
 'use client'
 import React from 'react';
-import { Row, Col, Card, Button, Space, Divider, Tag } from 'antd';
+import { Row, Col, Card, Button, Space, Divider } from 'antd';
 import {
   WalletOutlined,
   StockOutlined,
   BankOutlined,
   FileTextOutlined,
   RiseOutlined,
-  DownloadOutlined,
+  // DownloadOutlined,
   CheckCircleFilled,
 } from '@ant-design/icons';
 import { createStyles } from 'antd-style';
@@ -19,7 +19,7 @@ import Text from 'antd/es/typography/Text';
 const { Meta } = Card;
 
 // Modern Ant Design v5 styling
-const useStyles = createStyles(({ token }) => ({
+const useStyles = createStyles(() => ({
   hero: {
     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     color: 'white',
@@ -27,12 +27,13 @@ const useStyles = createStyles(({ token }) => ({
     textAlign: 'center' as const,
   },
   card: {
+    boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
     height: '100%',
     textAlign: 'center' as const,
     transition: 'transform 0.3s, box-shadow 0.3s',
     '&:hover': {
       transform: 'translateY(-8px)',
-      boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+      // boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
     },
   },
   cardIcon: {
@@ -46,11 +47,11 @@ const Home = () => {
 
   const courses = [
     { title: 'Personal Finance & Budgeting',        icon: <WalletOutlined />,      path: '/personal-finance',  color: '#52c41a' },
-    { title: 'Investing — Stocks, ETFs, Dividends', icon: <StockOutlined />,       path: '/investing',         color: '#1890ff' },
+    { title: 'Investing | Stocks, ETFs, Dividends', icon: <StockOutlined />,       path: '/investing',         color: '#1890ff' },
     { title: 'Cryptocurrency & Blockchain',         icon: <>&#8383;</>,            path: '/crypto',            color: '#f39c12' },
     { title: 'Corporate Finance & Valuation',       icon: <BankOutlined />,        path: '/corporate-finance', color: '#722ed1' },
     { title: 'Financial Accounting & Analysis',     icon: <FileTextOutlined />,    path: '/accounting',        color: '#eb2f96' },
-    { title: 'Economics — Micro & Macro',           icon: <RiseOutlined />,       path: '/economics',         color: '#13c2c2' },
+    { title: 'Economics | Micro & Macro',           icon: <RiseOutlined />,       path: '/economics',         color: '#13c2c2' },
   ];
 
   return (
@@ -61,16 +62,16 @@ const Home = () => {
           Master Finance.<br />Completely Free. Forever.
         </Title>
         <Paragraph style={{ fontSize: '22px', color: 'rgba(255,255,255,0.9)', maxWidth: '800px', margin: '0 auto 40px'}}>
-          Professional-grade courses on personal finance, investing, crypto, valuation, accounting & economics —
+          Professional-grade courses on personal finance, investing, crypto, valuation, accounting & economics |
           with free Excel templates and zero ads.
         </Paragraph>
         <Space size={24}>
           <Button type="primary" size="large" href="#courses" style={{ height: 56, padding: '0 40px', fontSize: '18px' }}>
             Start Learning Now
           </Button>
-          <Button size="large" ghost style={{ height: 56, padding: '0 40px', fontSize: '18px' }}>
-            <DownloadOutlined /> Free Templates
-          </Button>
+          {/*<Button size="large" ghost style={{ height: 56, padding: '0 40px', fontSize: '18px' }}>*/}
+          {/*  <DownloadOutlined /> Free Templates*/}
+          {/*</Button>*/}
         </Space>
       </div>
 
@@ -96,7 +97,7 @@ const Home = () => {
         </Row>
 
         {/* Course Grid */}
-        <div id="courses">
+        <div id="courses" className={"py-10"}>
           <Title level={2} style={{ textAlign: 'center', marginBottom: 60 }}>
             Choose Your Learning Path
           </Title>
@@ -105,14 +106,13 @@ const Home = () => {
             {courses.map((course) => (
               <Col xs={24} sm={12} lg={8} key={course.title}>
                 <Card
-                  hoverable
                   className={styles.card}
                   styles={{
                     body: { padding: '24px' },
                   }}
                   actions={[
                     <Button key={'1'} type="link" href={course.path} style={{ fontWeight: 600 }}>
-                      Start Course →
+                      Read More →
                     </Button>,
                   ]}
                 >
@@ -132,11 +132,11 @@ const Home = () => {
                       </Text>
                     }
                   />
-                  <div style={{ marginTop: 16 }}>
-                    <Tag color={course.color} style={{ borderRadius: 12, padding: '4px 12px' }}>
-                      Free Templates Included
-                    </Tag>
-                  </div>
+                  {/*<div style={{ marginTop: 16 }}>*/}
+                  {/*  <Tag color={course.color} style={{ borderRadius: 12, padding: '4px 12px' }}>*/}
+                  {/*    Free Templates Included*/}
+                  {/*  </Tag>*/}
+                  {/*</div>*/}
                 </Card>
               </Col>
             ))}
@@ -145,7 +145,7 @@ const Home = () => {
 
         {/* Final CTA */}
         <Divider />
-        <div style={{ textAlign: 'center', padding: '60px 0' }}>
+        <div style={{ textAlign: 'center', padding: '60px 0 10px' }}>
           <Title level={2}>Start building real wealth today</Title>
           <Paragraph style={{ fontSize: '18px', color: '#595959', maxWidth: 700, margin: '0 auto 40px' }}>
             No email. No credit card. Just the best free finance education on the internet.
