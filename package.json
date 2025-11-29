@@ -12,6 +12,7 @@
     "@ant-design/icons": "^6.1.0",
     "@tailwindcss/typography": "^0.5.19",
     "antd": "^6.0.0",
+    "antd-style": "^3.7.1",
     "axios": "^1.13.2",
     "next": "16.0.3",
     "react": "19.2.0",
