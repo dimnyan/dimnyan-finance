@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import React from "react";
+import type {Metadata} from "next";
+import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import SidebarComponent from "../../components/SidebarComponent";
 
@@ -14,8 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DimFinance | Free Finance Education — Learn Personal Finance, Investing, Crypto, Valuation & More",
+  title: {
+    default: "DimFinance",
+    template: "%s | DimFinance"
+  },
   description: "100% free, high-quality finance courses and tools. Master budgeting, stock investing, cryptocurrency, financial modeling, DCF valuation, accounting, economics. no registration required",
+  icons: "/icons/my-icon.png",
 };
 
 export default function RootLayout({
@@ -25,13 +30,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-      <SidebarComponent>
-        {children}
-      </SidebarComponent>
-      </body>
+    <body
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    >
+    <SidebarComponent>
+      {children}
+    </SidebarComponent>
+    </body>
     </html>
   );
 }
