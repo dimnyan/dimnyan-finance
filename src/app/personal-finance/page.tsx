@@ -1,236 +1,335 @@
 'use client'
 import React from 'react';
-import {Card, Row, Col, Divider, Space, Anchor} from 'antd';
+import {
+  Card,
+  Row,
+  Col,
+  Divider,
+  Space,
+  Anchor,
+  Tag,
+  Alert,
+  Progress,
+  // Statistic,
+  Tabs,
+  Timeline,
+  // Button,
+} from 'antd';
 import {
   WalletOutlined,
   CreditCardOutlined,
   FlagOutlined,
-  BankOutlined
+  BankOutlined,
+  // CalculatorOutlined,
+  // DownloadOutlined,
+  FireOutlined,
+  ThunderboltOutlined,
+  HeartOutlined,
+  // BulbOutlined,
 } from '@ant-design/icons';
+import {createStyles} from 'antd-style';
 
 import Title from "antd/es/typography/Title";
 import Paragraph from "antd/es/typography/Paragraph";
 import Text from "antd/es/typography/Text";
 
+const {Meta} = Card;
+
+const useStyles = createStyles(({token}) => ({
+  card: {
+    height: '100%',
+    transition: 'all 0.3s',
+    '&:hover': {transform: 'translateY(-6px)', boxShadow: token.boxShadow},
+  },
+  statCard: {
+    textAlign: 'center',
+    borderRadius: 12,
+    boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+    transition: 'all 0.3s',
+    '&:hover': {transform: 'translateY(-6px)', boxShadow: token.boxShadow},
+  },
+}));
+
 const PersonalFinance = () => {
+  const {styles} = useStyles();
+
   return (
     <Row>
       <Col span={20}>
         <div style={{maxWidth: '1200px', margin: '0 auto', padding: '40px 20px'}}>
+
+          {/* Hero */}
           <Title level={1}>Personal Finance & Budgeting</Title>
-          <Paragraph style={{fontSize: '18px', color: '#595959'}}>
-            Master the fundamentals of managing your money: create a budget that works, pay off debt faster,
-            build an emergency fund, and achieve your biggest financial goals | completely free.
+          <Paragraph style={{fontSize: '19px', color: '#595959', maxWidth: '800px'}}>
+            The only page you’ll ever need to go from <Text strong style={{fontSize: '19px',}}>financial
+            stress</Text> to
+            <Text strong style={{fontSize: '19px',}}> financial freedom</Text>.
+            Completely free, no ads, no email required.
           </Paragraph>
 
+          {/* Quick Win Stats */}
+          {/*<Row gutter={24} style={{marginBottom: 48}}>*/}
+          {/*  <Col xs={12} sm={8}>*/}
+          {/*    <Card className={styles.statCard}>*/}
+          {/*      <Statistic title="Average student saves" value="$4,200" suffix="/year" valueStyle={{color: '#3f8600'}}/>*/}
+          {/*    </Card>*/}
+          {/*  </Col>*/}
+          {/*  <Col xs={12} sm={8}>*/}
+          {/*    <Card className={styles.statCard}>*/}
+          {/*      <Statistic title="Pay off debt faster by" value="37" suffix="%" valueStyle={{color: '#cf1322'}}/>*/}
+          {/*    </Card>*/}
+          {/*  </Col>*/}
+          {/*  <Col xs={12} sm={8}>*/}
+          {/*    <Card className={styles.statCard}>*/}
+          {/*      <Statistic title="Build emergency fund in" value="9" suffix="months" valueStyle={{color: '#1890ff'}}/>*/}
+          {/*    </Card>*/}
+          {/*  </Col>*/}
+            {/*<Col xs={12} sm={6}>*/}
+            {/*  <Card className={styles.statCard}>*/}
+            {/*    <Statistic title="Learners worldwide" value="250K+" valueStyle={{color: '#722ed1'}}/>*/}
+            {/*  </Card>*/}
+            {/*</Col>*/}
+          {/*</Row>*/}
 
-          {/* ===== 1. Budgeting Basics ===== */}
+          {/* 1. Budgeting Mastery */}
           <Divider orientation="horizontal">
             <div id="budgeting">
-              <Space><WalletOutlined/> Budgeting Basics</Space>
+              <Space><WalletOutlined/> Budgeting Mastery</Space>
             </div>
           </Divider>
+          <Title level={4}>What is a Budget?</Title>
+          <Paragraph>A budget is a spending plan that tells your money where to go instead of wondering where it went.</Paragraph>
 
-          <Row gutter={[24, 24]}>
-            <Col xs={24} md={12} lg={8}>
-              <Card hoverable title="What is a Budget?">
-                A budget is a spending plan that tells your money where to go instead of wondering where it went.
+          <Row gutter={[24, 32]}>
+            <Col xs={24} md={8}>
+              <Card className={styles.card}>
+                <Meta
+                  title={<><FireOutlined style={{color: '#ff4facfe'}}/> 50/30/20 Rule</>}
+                  description={
+                    <>
+                      <Text strong>50%</Text> Needs<br/>
+                      <Text strong>30%</Text> Wants<br/>
+                      <Text strong>20%</Text> Savings + Debt<br/><br/>
+                      <Tag color="green">Perfect for beginners</Tag>
+                    </>
+                  }
+                />
               </Card>
             </Col>
-            <Col xs={24} md={12} lg={8}>
-              <Card hoverable title="50/30/20 Rule (Recommended for Beginners)">
-                <Text strong>50%</Text> Needs (rent, food, bills)<br/>
-                <Text strong>30%</Text> Wants (entertainment, dining)<br/>
-                <Text strong>20%</Text> Savings & Debt repayment
+            <Col xs={24} md={8}>
+              <Card className={styles.card}>
+                <Meta
+                  title={<><ThunderboltOutlined style={{color: '#f83600'}}/> Zero-Based Budget</>}
+                  description={
+                    <>
+                      Every dollar gets a job<br/>
+                      Income − Expenses − Savings = 0<br/><br/>
+                      <Tag color="volcano">Maximum control</Tag>
+                    </>
+                  }
+                />
               </Card>
             </Col>
-            <Col xs={24} md={12} lg={8}>
-              <Card hoverable title="Zero-Based Budgeting">
-                Every dollar is assigned a job. Income − Expenses − Savings = 0
+            <Col xs={24} md={8}>
+              <Card className={styles.card}>
+                <Meta
+                  title={<><HeartOutlined style={{color: '#eb2f96'}}/> Pay-Yourself-First</>}
+                  description={
+                    <>
+                      Auto-save 20% first<br/>
+                      Then live on the rest<br/><br/>
+                      <Tag color="magenta">Wealth-builder favorite</Tag>
+                    </>
+                  }
+                />
               </Card>
             </Col>
           </Row>
 
-          <Paragraph style={{marginTop: 30, fontSize: '16px'}}>
-            <strong>Pro Tip:</strong> Track your expenses for 30 days first | most people are shocked to see where their
-            money actually goes.
-          </Paragraph>
+          <Alert
+            title="Pro Tip: Track your expenses for 30 days first — most people are shocked to see where their money actually goes."
+            type="success"
+            showIcon
+            style={{margin: '32px 0'}}
+          />
 
-          {/* ===== 2. Debt Management ===== */}
+          {/* 2. Debt Destruction Strategies */}
           <Divider orientation="horizontal">
             <div id="debt">
-              <Space><CreditCardOutlined/> Debt Management</Space>
+              <Space><CreditCardOutlined/> Debt Destruction Strategies</Space>
             </div>
           </Divider>
 
-          <Row gutter={[16, 16]}>
+          <Tabs
+            items={[
+              {
+                key: 'snowball',
+                label: 'Debt Snowball (Motivation Monster)',
+                children: (
+                  <Card>
+                    <Timeline
+                      items={[
+                        {content: 'List debts smallest → largest (ignore interest)'},
+                        {content: 'Pay minimums on all'},
+                        {content: 'Attack smallest debt with extra dollar'},
+                        {content: 'Roll payment into next → snowball effect'},
+                      ]}
+                    />
+                    <Text type="success"><strong>Best if you need quick wins</strong></Text>
+                  </Card>
+                ),
+              },
+              {
+                key: 'avalanche',
+                label: 'Debt Avalanche (Mathematically Optimal)',
+                children: (
+                  <Card>
+                    <Timeline
+                      items={[
+                        {content: 'List debts highest → lowest interest rate'},
+                        {content: 'Pay minimums on all'},
+                        {content: 'Attack highest-interest debt first'},
+                        {content: 'Save maximum interest over time'},
+                      ]}
+                    />
+                    <Text type="danger"><strong>Saves the most money</strong></Text>
+                  </Card>
+                ),
+              },
+            ]}
+          />
+
+          {/* 3. Emergency Fund Builder */}
+          <Divider orientation="horizontal">
+            <div id="emergency">
+              <Space><BankOutlined/> Emergency Fund Builder</Space>
+            </div>
+          </Divider>
+
+          <Row gutter={24}>
             <Col span={24}>
-              <Card title="Two Proven Debt Repayment Strategies">
-                <Row gutter={32}>
+              <Card>
+                <Row gutter={48} align="middle">
                   <Col xs={24} md={12}>
-                    <Title level={4}>Snowball Method (Dave Ramsey)</Title>
-                    <ol>
-                      <li>List debts smallest to largest</li>
-                      <li>Pay minimums on everything</li>
-                      <li>Throw every extra dollar at the smallest debt</li>
-                      <li>Roll payment into next debt → snowball effect</li>
-                    </ol>
-                    <Text type="success"><strong>Best for motivation</strong></Text>
+                    <Title level={3}>Your Safety Net Levels</Title>
+                    <Progress percent={25} strokeColor="#52c41a" format={() => 'Level 1: $1,000'}/>
+                    <Progress percent={50} strokeColor="#1890ff" format={() => 'Level 2: 3 Months Expenses'}
+                              style={{margin: '16px 0'}}/>
+                    <Progress percent={75} strokeColor="#722ed1" format={() => 'Level 3: 6 Months'}/>
+                    <Progress percent={100} strokeColor="#f5222d" format={() => 'Level 4: 12 Months'}
+                              style={{marginTop: 16}}/>
                   </Col>
                   <Col xs={24} md={12}>
-                    <Title level={4}>Avalanche Method (Mathematically Optimal)</Title>
-                    <ol>
-                      <li>List debts highest interest rate to lowest</li>
-                      <li>Pay minimums on all</li>
-                      <li>Attack the highest-interest debt first</li>
-                    </ol>
-                    <Text type="danger"><strong>Saves the most money long-term</strong></Text>
+                    <Title level={4}>Best Places in 2025 (4–5.3% APY)</Title>
+                    <ul>
+                      <li>• Ally Bank • Marcus • SoFi • Capital One 360</li>
+                      <li>• Treasury Bills (via TreasuryDirect.gov)</li>
+                      <li>• High-Yield Money Market Funds (VMFXX, SPRXX)</li>
+                      <li>✅ Safe, liquid, and earning interest.</li>
+                    </ul>
                   </Col>
                 </Row>
               </Card>
             </Col>
           </Row>
 
-          {/* ===== 3. Emergency Fund ===== */}
-          <Divider orientation="horizontal">
-            <div id="emergency">
-              <Space>
-                <BankOutlined/>
-                Emergency Fund
-              </Space>
-            </div>
-          </Divider>
-
-          <Card>
-            <Title level={3}>How Much Should You Save?</Title>
-            <ul style={{fontSize: '16px'}}>
-              <li><strong>Beginner goal:</strong> $1,000</li>
-              <li><strong>Standard goal:</strong> 3–6 months of essential expenses</li>
-              <li><strong>Maximum security:</strong> 9–12 months (freelancers, single income)</li>
-            </ul>
-
-            <Title level={4} style={{marginTop: 30}}>Where to Keep It</Title>
-            <Text>
-              High-yield savings account (4–5% APY in 2025) or money-market fund | safe, liquid, and earning interest.
-            </Text>
-          </Card>
-
-          {/* ===== 4. Financial Goal Setting ===== */}
+          {/* 4. SMART Goal Setting + Calculator Teaser */}
           <Divider orientation="horizontal">
             <div id="goals">
-              <Space><FlagOutlined/> Financial Goal Setting (SMART Framework)</Space>
+              <Space><FlagOutlined/> Turn Dreams into Deadlines (S.M.A.R.T Goals)</Space>
             </div>
           </Divider>
 
-          <Row gutter={[24, 24]}>
-            <Col span={24}>
-              <Card>
-                <Paragraph>
-                  Make every goal <Text strong>S</Text>pecific, <Text strong>M</Text>easurable, <Text
-                  strong>A</Text>chievable,{' '}
-                  <Text strong>R</Text>elevant, <Text strong>T</Text>ime-bound.
-                </Paragraph>
-                <Title level={5}>Examples:</Title>
-                <ul>
-                  <li>Bad: “Save more money”</li>
-                  <li>Good: “Save $10,000 for a house down payment by Dec 31, 2027 by auto-transferring $300/paycheck”
-                  </li>
-                </ul>
-              </Card>
-            </Col>
-          </Row>
+          <Card style={{marginBottom: 32}}>
+            <Text>Make every goal <Text strong>S.M.A.R.T</Text> (Specific, Measurable, Achievable, Relevant, Time-bound)</Text>
+            <Title level={4}>Bad Goal Examples</Title>
+            <ul>
+              <li>“Save more money”</li>
+            </ul>
+            <Title level={4}>Good Goal Examples</Title>
+            <ul>
+              <li>“Save $20,000 for a house down payment by December 2027 by auto-saving $550/month”</li>
+              <li>“Pay off $15,000 credit card debt in 18 months using avalanche method”</li>
+              <li>“Build $12,000 emergency fund by June 2026 ($500/paycheck)”</li>
+            </ul>
+          </Card>
 
-          {/* ===== 5. Free Tools & Downloads ===== */}
+          {/* 5. Free Tools | Now with Previews */}
           {/*<Divider orientation="horizontal">*/}
           {/*  <div id="tools">*/}
-          {/*    <Space><CalculatorOutlined/> Free Tools & Downloads</Space>*/}
+          {/*    <Space><CalculatorOutlined/> Free Professional Tools (Instant Download)</Space>*/}
           {/*  </div>*/}
           {/*</Divider>*/}
 
-          {/*<Row gutter={[16, 16]}>*/}
-          {/*  <Col xs={24} sm={12} md={8}>*/}
+          {/*<Row gutter={[24, 32]}>*/}
+          {/*  <Col xs={24} sm={12} lg={12}>*/}
           {/*    <Card*/}
-          {/*      hoverable*/}
-          {/*      actions={[*/}
-          {/*        <a href="/downloads/budget-template.xlsx" key={'budget-template'} download>*/}
-          {/*          <DownloadOutlined/> Excel / Google Sheets*/}
-          {/*        </a>,*/}
-          {/*      ]}*/}
+          {/*      className={styles.card}*/}
+          {/*      // cover={<img alt="budget template" src="/previews/budget-preview.png"*/}
+          {/*      //             style={{borderRadius: '8px 8px 0 0'}}/>}*/}
+          {/*      actions={[<a href="/downloads/budget-template.xlsx" download><DownloadOutlined/> Download Excel</a>]}*/}
           {/*    >*/}
-          {/*      <Meta*/}
-          {/*        title="Monthly Budget Template (50/30/20)"*/}
-          {/*        description="Zero-based and 50/30/20 versions included"*/}
-          {/*      />*/}
+          {/*      <Meta title="Ultimate Budget Template" description="50/30/20 + Zero-Based + Pay-Yourself-First"/>*/}
           {/*    </Card>*/}
           {/*  </Col>*/}
-
-          {/*  <Col xs={24} sm={12} md={8}>*/}
+          {/*  <Col xs={24} sm={12} lg={12}>*/}
           {/*    <Card*/}
-          {/*      hoverable*/}
-          {/*      actions={[*/}
-          {/*        <a href="/downloads/debt-snowball-calculator.xlsx" key={'debt-snowball-calculator'} download>*/}
-          {/*          <DownloadOutlined/> Download*/}
-          {/*        </a>,*/}
-          {/*      ]}*/}
+          {/*      className={styles.card}*/}
+          {/*      // cover={<img alt="debt calculator" src="/previews/debt-preview.png"/>}*/}
+          {/*      actions={[<a href="/downloads/debt-snowball-calculator.xlsx" download><DownloadOutlined/> Download</a>]}*/}
           {/*    >*/}
-          {/*      <Meta*/}
-          {/*        title="Debt Snowball & Avalanche Calculator"*/}
-          {/*        description="See exact payoff dates and interest saved"*/}
-          {/*      />*/}
+          {/*      <Meta title="Debt Payoff Calculator" description="Snowball vs Avalanche comparison + payoff date"/>*/}
           {/*    </Card>*/}
           {/*  </Col>*/}
-
-          {/*  <Col xs={24} sm={12} md={8}>*/}
+          {/*  <Col xs={24} sm={12} lg={12}>*/}
           {/*    <Card*/}
-          {/*      hoverable*/}
-          {/*      actions={[*/}
-          {/*        <a href="/downloads/emergency-fund-tracker.pdf" key={'emergency-fund-tracker'} download>*/}
-          {/*          <DownloadOutlined/> PDF Tracker*/}
-          {/*        </a>,*/}
-          {/*      ]}*/}
+          {/*      className={styles.card}*/}
+          {/*      // cover={<img alt="net worth" src="/previews/networth-preview.png"/>}*/}
+          {/*      actions={[<a href="/downloads/net-worth-tracker.xlsx" download><DownloadOutlined/> Download</a>]}*/}
           {/*    >*/}
-          {/*      <Meta*/}
-          {/*        title="Emergency Fund Progress Tracker"*/}
-          {/*        description="Visual thermometer + milestone checklist"*/}
-          {/*      />*/}
+          {/*      <Meta title="Net Worth Tracker" description="Track assets, liabilities, progress over time"/>*/}
+          {/*    </Card>*/}
+          {/*  </Col>*/}
+          {/*  <Col xs={24} sm={12} lg={12}>*/}
+          {/*    <Card*/}
+          {/*      className={styles.card}*/}
+          {/*      // cover={<img alt="emergency fund" src="/previews/emergency-preview.png"/>}*/}
+          {/*      actions={[<a href="/downloads/emergency-fund-tracker.xlsx" download><DownloadOutlined/> Download</a>]}*/}
+          {/*    >*/}
+          {/*      <Meta title="Emergency Fund Thermometer" description="Visual progress + auto-calculating"/>*/}
           {/*    </Card>*/}
           {/*  </Col>*/}
           {/*</Row>*/}
 
+          {/* Final CTA */}
           {/*<Divider/>*/}
-          {/*<Title level={2} style={{textAlign: 'center', color: '#1890ff'}}>*/}
-          {/*  Start taking control of your money today | for free.*/}
-          {/*</Title>*/}
+          {/*<div style={{textAlign: 'center', padding: '60px 0'}}>*/}
+          {/*  <Title level={2} style={{color: '#1890ff'}}>*/}
+          {/*    Your money. Your rules.<br/>*/}
+          {/*    Take control today | 100% free.*/}
+          {/*  </Title>*/}
+          {/*  <Space size={20} style={{marginTop: 32}}>*/}
+          {/*    <a href="/downloads/budget-template.xlsx" download>*/}
+          {/*      <Button type="primary" size="large" icon={<DownloadOutlined/>}>*/}
+          {/*        Download All Templates (Free)*/}
+          {/*      </Button>*/}
+          {/*    </a>*/}
+          {/*  </Space>*/}
+          {/*</div>*/}
         </div>
       </Col>
+
+      {/* Sidebar */}
       <Col span={4}>
         <Anchor
           affix={true}
           offsetTop={100}
-          style={{marginBottom: 40}}
           items={[
-            {
-              key: 'budgeting',
-              href: '#budgeting',
-              title: 'Budgeting Basics',
-            }, {
-              key: 'debt',
-              href: '#debt',
-              title: 'Debt Management',
-            }, {
-              key: 'emergency',
-              href: '#emergency',
-              title: 'Emergency Fund',
-            }, {
-              key: 'goals',
-              href: '#goals',
-              title: 'Financial Goal Setting',
-            },
-            // {
-            //   key: 'tools',
-            //   href: '#tools',
-            //   title: 'Free Tools & Downloads',
-            // }
+            {key: 'budgeting', href: '#budgeting', title: 'Budgeting Mastery'},
+            {key: 'debt', href: '#debt', title: 'Debt Strategies'},
+            {key: 'emergency', href: '#emergency', title: 'Emergency Fund'},
+            {key: 'goals', href: '#goals', title: 'S.M.A.R.T Goals'},
+            // {key: 'tools', href: '#tools', title: 'Free Tools & Templates'},
           ]}
         />
       </Col>
