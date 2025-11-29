@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import {Typography, Card, Row, Col, Divider, Space, Anchor} from 'antd';
+import {Card, Row, Col, Divider, Space, Anchor} from 'antd';
 import {
   WalletOutlined,
   CreditCardOutlined,
@@ -12,9 +12,6 @@ import Title from "antd/es/typography/Title";
 import Paragraph from "antd/es/typography/Paragraph";
 import Text from "antd/es/typography/Text";
 
-const {Meta} = Card;
-
-
 const PersonalFinance = () => {
   return (
     <Row>
@@ -23,13 +20,13 @@ const PersonalFinance = () => {
           <Title level={1}>Personal Finance & Budgeting</Title>
           <Paragraph style={{fontSize: '18px', color: '#595959'}}>
             Master the fundamentals of managing your money: create a budget that works, pay off debt faster,
-            build an emergency fund, and achieve your biggest financial goals — completely free.
+            build an emergency fund, and achieve your biggest financial goals | completely free.
           </Paragraph>
 
 
           {/* ===== 1. Budgeting Basics ===== */}
           <Divider orientation="horizontal">
-            <div id="tools">
+            <div id="budgeting">
               <Space><WalletOutlined/> Budgeting Basics</Space>
             </div>
           </Divider>
@@ -55,7 +52,7 @@ const PersonalFinance = () => {
           </Row>
 
           <Paragraph style={{marginTop: 30, fontSize: '16px'}}>
-            <strong>Pro Tip:</strong> Track your expenses for 30 days first — most people are shocked to see where their
+            <strong>Pro Tip:</strong> Track your expenses for 30 days first | most people are shocked to see where their
             money actually goes.
           </Paragraph>
 
@@ -114,7 +111,7 @@ const PersonalFinance = () => {
 
             <Title level={4} style={{marginTop: 30}}>Where to Keep It</Title>
             <Text>
-              High-yield savings account (4–5% APY in 2025) or money-market fund — safe, liquid, and earning interest.
+              High-yield savings account (4–5% APY in 2025) or money-market fund | safe, liquid, and earning interest.
             </Text>
           </Card>
 
@@ -144,8 +141,10 @@ const PersonalFinance = () => {
           </Row>
 
           {/* ===== 5. Free Tools & Downloads ===== */}
-          {/*<Divider id="tools" orientation="horizontal">*/}
-          {/*  <Space><CalculatorOutlined/> Free Tools & Downloads</Space>*/}
+          {/*<Divider orientation="horizontal">*/}
+          {/*  <div id="tools">*/}
+          {/*    <Space><CalculatorOutlined/> Free Tools & Downloads</Space>*/}
+          {/*  </div>*/}
           {/*</Divider>*/}
 
           {/*<Row gutter={[16, 16]}>*/}
@@ -153,7 +152,7 @@ const PersonalFinance = () => {
           {/*    <Card*/}
           {/*      hoverable*/}
           {/*      actions={[*/}
-          {/*        <a href="/downloads/budget-template.xlsx" download>*/}
+          {/*        <a href="/downloads/budget-template.xlsx" key={'budget-template'} download>*/}
           {/*          <DownloadOutlined/> Excel / Google Sheets*/}
           {/*        </a>,*/}
           {/*      ]}*/}
@@ -169,7 +168,7 @@ const PersonalFinance = () => {
           {/*    <Card*/}
           {/*      hoverable*/}
           {/*      actions={[*/}
-          {/*        <a href="/downloads/debt-snowball-calculator.xlsx" download>*/}
+          {/*        <a href="/downloads/debt-snowball-calculator.xlsx" key={'debt-snowball-calculator'} download>*/}
           {/*          <DownloadOutlined/> Download*/}
           {/*        </a>,*/}
           {/*      ]}*/}
@@ -185,7 +184,7 @@ const PersonalFinance = () => {
           {/*    <Card*/}
           {/*      hoverable*/}
           {/*      actions={[*/}
-          {/*        <a href="/downloads/emergency-fund-tracker.pdf" download>*/}
+          {/*        <a href="/downloads/emergency-fund-tracker.pdf" key={'emergency-fund-tracker'} download>*/}
           {/*          <DownloadOutlined/> PDF Tracker*/}
           {/*        </a>,*/}
           {/*      ]}*/}
@@ -200,7 +199,7 @@ const PersonalFinance = () => {
 
           {/*<Divider/>*/}
           {/*<Title level={2} style={{textAlign: 'center', color: '#1890ff'}}>*/}
-          {/*  Start taking control of your money today — for free.*/}
+          {/*  Start taking control of your money today | for free.*/}
           {/*</Title>*/}
         </div>
       </Col>
