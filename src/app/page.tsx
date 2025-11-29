@@ -1,186 +1,169 @@
-'use client';
+'use client'
+import React from 'react';
+import { Row, Col, Card, Button, Space, Divider, Tag } from 'antd';
+import {
+  WalletOutlined,
+  StockOutlined,
+  BankOutlined,
+  FileTextOutlined,
+  RiseOutlined,
+  DownloadOutlined,
+  CheckCircleFilled,
+} from '@ant-design/icons';
+import { createStyles } from 'antd-style';
 
-import { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import {Card, Form, Input, Button, Tabs, Typography, message, Spin, Alert, Dropdown, Select} from 'antd';
-import { RobotOutlined, DollarCircleOutlined, SaveOutlined } from '@ant-design/icons';
-import axios from 'axios';
+import Title from 'antd/es/typography/Title';
+import Paragraph from 'antd/es/typography/Paragraph';
+import Text from 'antd/es/typography/Text';
 
-const { Title, Paragraph } = Typography;
-const { TabPane } = Tabs;
+const { Meta } = Card;
 
-export default function Home() {
-  const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
-  const [advice, setAdvice] = useState<string>('');
-  const [currencySymbol, setCurrencySymbol] = useState<string>("$")
+// Modern Ant Design v5 styling
+const useStyles = createStyles(({ token }) => ({
+  hero: {
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    color: 'white',
+    padding: '120px 20px',
+    textAlign: 'center' as const,
+  },
+  card: {
+    height: '100%',
+    textAlign: 'center' as const,
+    transition: 'transform 0.3s, box-shadow 0.3s',
+    '&:hover': {
+      transform: 'translateY(-8px)',
+      boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+    },
+  },
+  cardIcon: {
+    fontSize: 64,
+    marginBottom: 16,
+  },
+}));
 
-  const getGrokAdvice = async (values: any) => {
-    setLoading(true);
-    setAdvice('');
+const Home = () => {
+  const { styles } = useStyles();
 
-    const prompt = `
-You are a compassionate investment banker helping low-income families in the United States.
-User profile:
-- Monthly take-home income: ${currencySymbol}${values.income}
-- Rent/Mortgage: ${currencySymbol}${values.rent}
-- Total monthly expenses: ${currencySymbol}${values.expenses}
-- Current debt: ${currencySymbol}${values.debt} (type: ${values.debtType || 'various'})
-- Savings: ${currencySymbol}${values.savings}
-- Goal: ${values.goal || 'build emergency fund and get out of debt'}
-
-Provide a clear, kind, actionable 12-month financial plan including:
-1. Recommended budget (use 50/30/20 or better)
-2. Debt payoff strategy (snowball or avalanche)
-3. Side hustle ideas under $100 to start
-4. Free government or community resources
-5. Emergency fund target
-6. Credit improvement steps
-
-Be encouraging, realistic, and speak like a trusted friend. Use bullet points.
-    `;
-
-    try {
-      const response = await axios.post(
-        'https://api.x.ai/v1/chat/completions',
-        {
-          model: 'grok-2-1212',
-          messages: [{ role: 'user', content: prompt }],
-          temperature: 0.7,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_GROK_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      setAdvice(response.data.choices[0].message.content);
-    } catch (error: any) {
-      message.error('Could not connect to Grok AI. Please try again later.');
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const courses = [
+    { title: 'Personal Finance & Budgeting',        icon: <WalletOutlined />,      path: '/personal-finance',  color: '#52c41a' },
+    { title: 'Investing — Stocks, ETFs, Dividends', icon: <StockOutlined />,       path: '/investing',         color: '#1890ff' },
+    { title: 'Cryptocurrency & Blockchain',         icon: <>&#8383;</>,            path: '/crypto',            color: '#f39c12' },
+    { title: 'Corporate Finance & Valuation',       icon: <BankOutlined />,        path: '/corporate-finance', color: '#722ed1' },
+    { title: 'Financial Accounting & Analysis',     icon: <FileTextOutlined />,    path: '/accounting',        color: '#eb2f96' },
+    { title: 'Economics — Micro & Macro',           icon: <RiseOutlined />,       path: '/economics',         color: '#13c2c2' },
+  ];
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-10">
-            <Title level={1} className="flex items-center justify-center gap-3">
-              <RobotOutlined className="text-5xl text-blue-600" />
-              GrokFinance
-            </Title>
-            <Paragraph className="text-xl text-gray-600">
-              Your free personal investment banker — powered by Grok AI
-            </Paragraph>
-            <Alert
-              message="100% Free • No ads • Built for people earning under $50k/year"
-              type="success"
-              showIcon
-              className="mt-4 max-w-md mx-auto"
-            />
-          </div>
+      {/* Hero */}
+      <div className={styles.hero}>
+        <Title level={1} style={{ color: 'white', fontSize: '56px', marginBottom: 24 }}>
+          Master Finance.<br />Completely Free. Forever.
+        </Title>
+        <Paragraph style={{ fontSize: '22px', color: 'rgba(255,255,255,0.9)', maxWidth: '800px', margin: '0 auto 40px 40px' }}>
+          Professional-grade courses on personal finance, investing, crypto, valuation, accounting & economics —
+          with free Excel templates and zero ads.
+        </Paragraph>
+        <Space size={24}>
+          <Button type="primary" size="large" href="#courses" style={{ height: 56, padding: '0 40px', fontSize: '18px' }}>
+            Start Learning Now
+          </Button>
+          <Button size="large" ghost style={{ height: 56, padding: '0 40px', fontSize: '18px' }}>
+            <DownloadOutlined /> Free Templates
+          </Button>
+        </Space>
+      </div>
 
-          <Card>
-            <Tabs defaultActiveKey="1" centered>
-              <TabPane
-                tab={<span><DollarCircleOutlined /> Get My Free Plan</span>}
-                key="1"
-              >
-                <Form
-                  form={form}
-                  layout="vertical"
-                  onFinish={getGrokAdvice}
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '80px 20px' }}>
+
+        {/* Trust Signals */}
+        <Row gutter={[32, 48]} justify="center" style={{ marginBottom: 80 }}>
+          <Col xs={24} sm={8} style={{ textAlign: 'center' }}>
+            <CheckCircleFilled style={{ fontSize: 52, color: '#52c41a' }} />
+            <Title level={3}>100% Free</Title>
+            <Text>No registration • No ads • No paywall</Text>
+          </Col>
+          <Col xs={24} sm={8} style={{ textAlign: 'center' }}>
+            <CheckCircleFilled style={{ fontSize: 52, color: '#1890ff' }} />
+            <Title level={3}>Professional Level</Title>
+            <Text>Used by analysts, MBAs, CFA students</Text>
+          </Col>
+          <Col xs={24} sm={8} style={{ textAlign: 'center' }}>
+            <CheckCircleFilled style={{ fontSize: 52, color: '#722ed1' }} />
+            <Title level={3}>Free Excel Tools</Title>
+            <Text>DCF • LBO • Budget • Crypto Tracker</Text>
+          </Col>
+        </Row>
+
+        {/* Course Grid */}
+        <div id="courses">
+          <Title level={2} style={{ textAlign: 'center', marginBottom: 60 }}>
+            Choose Your Learning Path
+          </Title>
+
+          <Row gutter={[24, 32]}>
+            {courses.map((course) => (
+              <Col xs={24} sm={12} lg={8} key={course.title}>
+                <Card
+                  hoverable
+                  className={styles.card}
+                  styles={{
+                    body: { padding: '24px' },
+                  }}
+                  actions={[
+                    <Button key={'1'} type="link" href={course.path} style={{ fontWeight: 600 }}>
+                      Start Course →
+                    </Button>,
+                  ]}
                 >
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <Form.Item label={"Currency"}>
-                      <Select onChange={(e)=>setCurrencySymbol(e)}
-                              options={[{ label: 'USD', value: '$' }, { label: 'IDR', value: 'IDR' }]} value={currencySymbol}/>
-                    </Form.Item>
-                    <Form.Item name="income" label="Monthly Take-Home Income" rules={[{ required: true }]}>
-                      <Input prefix={currencySymbol} placeholder="2400" type="number" />
-                    </Form.Item>
-                    <Form.Item name="rent" label="Rent / Mortgage">
-                      <Input prefix={currencySymbol} placeholder="900" type="number" />
-                    </Form.Item>
-                    <Form.Item name="expenses" label="All Other Monthly Expenses">
-                      <Input prefix={currencySymbol} placeholder="1200" type="number" />
-                    </Form.Item>
-                    <Form.Item name="debt" label="Total Debt (credit cards, loans, etc)">
-                      <Input prefix={currencySymbol} placeholder="8000" type="number" />
-                    </Form.Item>
-                    <Form.Item name="debtType" label="Type of Debt (optional)">
-                      <Input placeholder="credit cards, medical, student loans" />
-                    </Form.Item>
-                    <Form.Item name="savings" label="Current Savings">
-                      <Input prefix={currencySymbol} placeholder="300" type="number" />
-                    </Form.Item>
+                  <div className={styles.cardIcon} style={{ color: course.color }}>
+                    {course.icon}
                   </div>
-
-                  <Form.Item name="goal" label="Your #1 Financial Goal (optional)">
-                    <Input.TextArea rows={2} placeholder="Get out of debt, build emergency fund, save for kids..." />
-                  </Form.Item>
-
-                  <Button
-                    type="primary"
-                    size="large"
-                    block
-                    htmlType="submit"
-                    loading={loading}
-                    icon={<RobotOutlined />}
-                  >
-                    Get My Free Financial Plan from Grok AI
-                  </Button>
-                </Form>
-
-                {loading && (
-                  <div className="text-center my-10">
-                    <Spin size="large" />
-                    <Paragraph className="mt-4">Grok is analyzing your situation...</Paragraph>
-                  </div>
-                )}
-
-                {advice && (
-                  <Card
-                    className="mt-8 bg-blue-50"
-                    title={
-                      <Title level={3}>
-                        <SaveOutlined /> Your Personalized Financial Plan
-                      </Title>
+                  <Meta
+                    title={<Title level={4} style={{ margin: 0 }}>{course.title}</Title>}
+                    description={
+                      <Text type="secondary">
+                        {course.title.includes('Personal') && 'Budgeting • Debt • Emergency Fund • Goals'}
+                        {course.title.includes('Investing') && 'Stocks • ETFs • Index Funds • Dividends'}
+                        {course.title.includes('Crypto') && 'Bitcoin • Ethereum • DeFi • Wallets'}
+                        {course.title.includes('Corporate') && 'DCF • LBO • Comps • M&A'}
+                        {course.title.includes('Accounting') && '3 Statements • Ratios • Red Flags'}
+                        {course.title.includes('Economics') && 'GDP • Inflation • Monetary Policy'}
+                      </Text>
                     }
-                  >
-                    <div className="prose prose-lg max-w-none text-gray-800">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                        {advice}
-                      </ReactMarkdown>
-                    </div>
-                  </Card>
-                )}
-              </TabPane>
+                  />
+                  <div style={{ marginTop: 16 }}>
+                    <Tag color={course.color} style={{ borderRadius: 12, padding: '4px 12px' }}>
+                      Free Templates Included
+                    </Tag>
+                  </div>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </div>
 
-              <TabPane tab="About" key="2">
-                <Title level={3}>Why This Exists</Title>
-                <Paragraph>
-                  Traditional financial advisors charge $200–500/hour and require $250k+ in assets.
-                  This app brings <strong>investment-banking quality advice</strong> to everyone — for free — using Grok AI.
-                </Paragraph>
-                <Paragraph>
-                  We believe financial dignity should not have a paywall.
-                </Paragraph>
-              </TabPane>
-            </Tabs>
-          </Card>
-
-          <Paragraph className="text-center mt-10 text-gray-500">
-            Built with ❤️ using Next.js + Ant Design + Grok AI
+        {/* Final CTA */}
+        <Divider />
+        <div style={{ textAlign: 'center', padding: '60px 0' }}>
+          <Title level={2}>Start building real wealth today</Title>
+          <Paragraph style={{ fontSize: '18px', color: '#595959', maxWidth: 700, margin: '0 auto 40px' }}>
+            No email. No credit card. Just the best free finance education on the internet.
           </Paragraph>
+          <Space size={20}>
+            <Button type="primary" size="large" icon={<WalletOutlined />} href="/personal-finance">
+              Start: Personal Finance
+            </Button>
+            <Button size="large" href="/investing">
+              Or Jump to Investing
+            </Button>
+          </Space>
+          <br /><br />
+          <Text type="secondary">Updated for 2025 • 100% free forever</Text>
         </div>
       </div>
     </>
   );
-}
+};
+
+export default Home;
