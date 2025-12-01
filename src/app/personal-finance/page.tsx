@@ -5,7 +5,6 @@ import {
   Row,
   Col,
   Divider,
-  Space,
   Anchor,
   Tag,
   Alert,
@@ -92,11 +91,12 @@ const PersonalFinance = () => {
           {/*</Row>*/}
 
           {/* 1. Budgeting Mastery */}
-          <Divider orientation="horizontal">
+          <Divider />
             <div id="budgeting">
-              <Space><WalletOutlined/> Budgeting Mastery</Space>
+              <Title level={3}><WalletOutlined/> Budgeting Mastery</Title>
             </div>
-          </Divider>
+          <div className={'p-3'}></div>
+
           <Title level={4}>What is a Budget?</Title>
           <Paragraph>A budget is a spending plan that tells your money where to go instead of wondering where it went.</Paragraph>
 
@@ -154,11 +154,11 @@ const PersonalFinance = () => {
           />
 
           {/* 2. Debt Destruction Strategies */}
-          <Divider orientation="horizontal">
+          <Divider />
             <div id="debt">
-              <Space><CreditCardOutlined/> Debt Destruction Strategies</Space>
+              <Title level={3}><CreditCardOutlined/> Debt Destruction Strategies</Title>
             </div>
-          </Divider>
+          <div className={'p-3'}></div>
 
           <Tabs
             items={[
@@ -200,11 +200,11 @@ const PersonalFinance = () => {
           />
 
           {/* 3. Emergency Fund Builder */}
-          <Divider orientation="horizontal">
+          <Divider />
             <div id="emergency">
-              <Space><BankOutlined/> Emergency Fund Builder</Space>
+              <Title level={3}><BankOutlined/> Emergency Fund Builder</Title>
             </div>
-          </Divider>
+          <div className={'p-3'}></div>
 
           <Row gutter={24}>
             <Col span={24}>
@@ -234,11 +234,11 @@ const PersonalFinance = () => {
           </Row>
 
           {/* 4. SMART Goal Setting + Calculator Teaser */}
-          <Divider orientation="horizontal">
+          <Divider />
             <div id="goals">
-              <Space><FlagOutlined/> Turn Dreams into Deadlines (S.M.A.R.T Goals)</Space>
+              <Title level={3}><FlagOutlined/> Turn Dreams into Deadlines (S.M.A.R.T Goals)</Title>
             </div>
-          </Divider>
+          <div className={'p-3'}></div>
 
           <Card style={{marginBottom: 32}}>
             <Text>Make every goal <Text strong>S.M.A.R.T</Text> (Specific, Measurable, Achievable, Relevant, Time-bound)</Text>
