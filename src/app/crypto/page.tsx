@@ -16,7 +16,7 @@ import {
   BlockOutlined,
   WalletOutlined,
   RocketOutlined,
-  WarningOutlined,
+  WarningOutlined, BankOutlined, DollarOutlined,
 } from '@ant-design/icons';
 
 import Title from "antd/es/typography/Title";
@@ -47,18 +47,19 @@ const Crypto = () => {
         <div style={{maxWidth: '1200px', margin: '0 auto', padding: '40px 20px'}}>
           <Title level={1}>Cryptocurrency & Blockchain</Title>
           <Paragraph style={{fontSize: '18px', color: '#595959'}}>
-            Understand Bitcoin, Ethereum, DeFi, NFTs, wallets, and blockchain technology — explained clearly, honestly,
+            Understand Bitcoin, Ethereum, DeFi, NFTs, wallets, and blockchain technology | explained clearly, honestly,
             and
             completely free.
           </Paragraph>
 
 
           {/* 1. Blockchain Basics */}
-          <Divider orientation="horizontal">
-            <div id="whatis">
-              <Space><BlockOutlined/> What is Blockchain & Cryptocurrency?</Space>
-            </div>
-          </Divider>
+          <Divider/>
+          <div id="whatis">
+            <Title level={3}><BlockOutlined/> What is Blockchain & Cryptocurrency?</Title>
+          </div>
+          <div className={'p-3'}></div>
+
           <Row gutter={[24, 24]}>
             <Col xs={24} md={12}>
               <Card title="Blockchain in Simple Terms">
@@ -70,17 +71,18 @@ const Crypto = () => {
             <Col xs={24} md={12}>
               <Card title="Cryptocurrency">
                 Digital money that runs on blockchain.<br/>
-                No banks needed — you can send $1 or $1M to anyone on Earth 24/7 for pennies.
+                No banks needed | you can send $1 or $1M to anyone on Earth 24/7 for pennies.
               </Card>
             </Col>
           </Row>
 
           {/* 2. Bitcoin */}
-          <Divider orientation="horizontal">
-            <div id="bitcoin">
-              <Space>&#8383; Bitcoin — The Original</Space>
-            </div>
-          </Divider>
+          <Divider/>
+          <div id="bitcoin">
+            <Title level={3}>&#8383; Bitcoin | The Original</Title>
+          </div>
+          <div className={'p-3'}></div>
+
           <Card>
             <Paragraph>
               <Text strong>Created:</Text> 2009 by Satoshi Nakamoto (still anonymous)<br/>
@@ -94,11 +96,12 @@ const Crypto = () => {
           </Card>
 
           {/* 3. Ethereum & Smart Contracts */}
-          <Divider orientation="horizontal">
-            <div id="ethereum">
-              Ethereum & Smart Contracts
-            </div>
-          </Divider>
+          <Divider/>
+          <div id="ethereum">
+            <Title level={3}><BlockOutlined /> Ethereum & Smart Contracts</Title>
+          </div>
+          <div className={'p-3'}></div>
+
           <Card>
             <Title level={4}>Ethereum = Programmable Money</Title>
             <ul>
@@ -110,11 +113,12 @@ const Crypto = () => {
           </Card>
 
           {/* 4. Top Coins 2025 */}
-          <Divider orientation="horizontal">
-            <div id="altcoins">
-              Top Cryptocurrencies 2025
-            </div>
-          </Divider>
+          <Divider/>
+          <div id="altcoins">
+            <Title level={3}><DollarOutlined /> Top Cryptocurrencies 2025</Title>
+          </div>
+          <div className={'p-3'}></div>
+
           <Table
             columns={columns}
             dataSource={topCoins2025}
@@ -123,11 +127,12 @@ const Crypto = () => {
           />
 
           {/* 5. DeFi & Stablecoins */}
-          <Divider orientation="horizontal">
-            <div id="defi">
-              <Space><RocketOutlined/> DeFi, Stablecoins & Earning Yield</Space>
-            </div>
-          </Divider>
+          <Divider/>
+          <div id="defi">
+            <Title level={3}><RocketOutlined/> DeFi, Stablecoins & Earning Yield</Title>
+          </div>
+          <div className={'p-3'}></div>
+
           <Alert
             title="You can now earn 4–10% APY on USD stablecoins with almost zero risk using regulated platforms (2025)."
             type="success"
@@ -151,11 +156,12 @@ const Crypto = () => {
           </Row>
 
           {/* 6. NFTs & Web3 */}
-          <Divider orientation="horizontal">
-            <div id="nfts">
-              NFTs & Web3
-            </div>
-          </Divider>
+          <Divider/>
+          <div id="nfts">
+            <Title level={3}><BlockOutlined /> NFTs & Web3</Title>
+          </div>
+          <div className={'p-3'}></div>
+
           <Card>
             <Paragraph>
               NFTs = unique digital assets (art, music, tickets, domain names).<br/>
@@ -164,26 +170,28 @@ const Crypto = () => {
           </Card>
 
           {/* 7. Wallets & Security */}
-          <Divider orientation="horizontal">
-            <div id="wallets">
-              <Space><WalletOutlined/> Wallets & Security Best Practices</Space>
-            </div>
-          </Divider>
+          <Divider/>
+          <div id="wallets">
+            <Title level={3}><WalletOutlined/> Wallets & Security Best Practices</Title>
+          </div>
+          <div className={'p-3'}></div>
+
           <Timeline style={{marginTop: 24}}>
             <Timeline.Item color="green">Use a hardware wallet (Ledger, Trezor) for &lt; $1,000</Timeline.Item>
             <Timeline.Item color="blue">Enable 2FA everywhere</Timeline.Item>
             <Timeline.Item color="red">Never share your seed phrase with anyone</Timeline.Item>
             <Timeline.Item color="orange">Use a separate hot wallet (MetaMask, Phantom) for small daily
               use</Timeline.Item>
-            <Timeline.Item color="gold">Write seed phrase on paper/steel — never digital</Timeline.Item>
+            <Timeline.Item color="gold">Write seed phrase on paper/steel | never digital</Timeline.Item>
           </Timeline>
 
           {/* 8. Risks & Scams */}
-          <Divider orientation="horizontal">
-            <div id="risks">
-              <Space><WarningOutlined/> Risks & Common Scams (2025)</Space>
-            </div>
-          </Divider>
+          <Divider/>
+          <div id="risks">
+            <Title level={3}><WarningOutlined/> Risks & Common Scams (2025)</Title>
+          </div>
+          <div className={'p-3'}></div>
+
           <Card type="inner" title="Red Flags">
             <Text type="danger">
               • “Send me crypto and I’ll send double back”<br/>
@@ -234,25 +242,31 @@ const Crypto = () => {
             {
               key: 'whatis',
               href: '#whatis',
-              title: 'What is Blockchain & Crypto?',
+              title: 'What is Blockchain & Cryptocurrency?',
             }, {
               key: 'bitcoin',
               href: '#bitcoin',
-              title: 'Bitcoin — Digital Gold',
+              title: 'Bitcoin | The Original',
             }, {
               key: 'ethereum',
               href: '#ethereum',
               title: 'Ethereum & Smart Contracts',
-            }, {
+            },
+            {
               key: 'altcoins',
               href: '#altcoins',
-              title: 'Altcoins & Layer-1s',
+              title: 'Top Cryptocurrencies 2025',
             },
             {
               key: 'defi',
               href: '#defi',
               title: 'DeFi, Stablecoins & Yield',
             },
+            // {
+            //   key: 'altcoins',
+            //   href: '#altcoins',
+            //   title: 'Altcoins & Layer-1s',
+            // },
             {
               key: 'nfts',
               href: '#nfts',
