@@ -169,7 +169,7 @@ const FinancialAccounting = () => {
           <div className={'p-3'}></div>
 
           <Alert
-            title="Enron had rising net income but collapsing cash flow — that was the warning sign."
+            title="Enron had rising net income but collapsing cash flow. That was the warning sign."
             type="warning"
             showIcon
             style={{ marginBottom: 32 }}
