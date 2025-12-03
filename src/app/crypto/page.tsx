@@ -330,13 +330,13 @@ const Crypto = () => {
             </Col>
           </Row>
           <Timeline style={{ marginTop: 24 }}
-                    items={[
-                      {content: "Hardware for &gt; $1K; software for daily use", color: 'green'},
-                      {content: "2FA + biometric everywhere", color: 'blue'},
-                      {content: "Never click unsolicited links — phishing = 70% of hacks", color: 'red'},
-                      {content: "Seed phrase: Steel backup, never screenshot", color: 'orange'},
-                      {content: "Use multisig for teams/large holdings", color: 'gold'},
-                    ]}
+            items={[
+              {content: "Hardware for &gt; $1K; software for daily use", color: 'green'},
+              {content: "2FA + biometric everywhere", color: 'blue'},
+              {content: "Never click unsolicited links — phishing = 70% of hacks", color: 'red'},
+              {content: "Seed phrase: Steel backup, never screenshot", color: 'orange'},
+              {content: "Use multisig for teams/large holdings", color: 'gold'},
+            ]}
           />
 
           {/* 8. Risks & Scams */}
