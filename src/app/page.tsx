@@ -93,9 +93,16 @@ export default function Home() {
       });
       setAdvice(response.data.content);
     } catch (error) {
-      message.error(
-          'Could not generate your plan right now. Please try again in a moment — or check the Free Resources tab in the meantime.'
-      );
+      if (axios.isAxiosError(error) && error.response?.status === 429) {
+        message.warning(
+            error.response.data?.error ??
+            "You've reached the free plan limit for now — try again later."
+        );
+      } else {
+        message.error(
+            'Could not generate your plan right now. Please try again in a moment — or check the Free Resources tab in the meantime.'
+        );
+      }
       console.error(error);
     } finally {
       setLoading(false);
