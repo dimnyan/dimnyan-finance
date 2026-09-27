@@ -1,169 +1,283 @@
-'use client'
-import React from 'react';
-import { Row, Col, Card, Button, Space, Divider } from 'antd';
+'use client';
+
+import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import {
-  WalletOutlined,
-  StockOutlined,
-  BankOutlined,
-  FileTextOutlined,
-  RiseOutlined,
-  // DownloadOutlined,
-  CheckCircleFilled,
+  Card,
+  Form,
+  Input,
+  Button,
+  Tabs,
+  Typography,
+  message,
+  Spin,
+  Alert,
+  Select,
+  List,
+} from 'antd';
+import {
+  RobotOutlined,
+  DollarCircleOutlined,
+  SaveOutlined,
+  ReadOutlined,
+  LinkOutlined,
 } from '@ant-design/icons';
-import { createStyles } from 'antd-style';
+import axios from 'axios';
 
-import Title from 'antd/es/typography/Title';
-import Paragraph from 'antd/es/typography/Paragraph';
-import Text from 'antd/es/typography/Text';
+const { Title, Paragraph, Text } = Typography;
 
-const { Meta } = Card;
+interface FormValues {
+  income: string;
+  rent?: string;
+  expenses?: string;
+  debt?: string;
+  debtType?: string;
+  savings?: string;
+  goal?: string;
+}
 
-// Modern Ant Design v5 styling
-const useStyles = createStyles(() => ({
-  hero: {
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    color: 'white',
-    padding: '120px 20px',
-    textAlign: 'center' as const,
+const FREE_RESOURCES = [
+  {
+    name: 'Benefits.gov',
+    url: 'https://www.benefits.gov',
+    description:
+        'Official U.S. government screening tool — answer a few questions to see which federal and state assistance programs you may qualify for.',
   },
-  card: {
-    boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
-    height: '100%',
-    textAlign: 'center' as const,
-    transition: 'transform 0.3s, box-shadow 0.3s',
-    '&:hover': {
-      transform: 'translateY(-8px)',
-      // boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
-    },
+  {
+    name: '211.org',
+    url: 'https://www.211.org',
+    description:
+        'Free, confidential referral service for food, housing, utility, and emergency assistance in your local area. Call 211 or search by ZIP code.',
   },
-  cardIcon: {
-    fontSize: 64,
-    marginBottom: 16,
+  {
+    name: 'National Foundation for Credit Counseling (NFCC)',
+    url: 'https://www.nfcc.org',
+    description:
+        'Certified nonprofit credit counselors — free or low-cost help with budgeting, debt management plans, and credit report reviews.',
   },
-}));
+  {
+    name: 'IRS VITA Program',
+    url: 'https://www.irs.gov/individuals/free-tax-return-preparation-for-qualifying-taxpayers',
+    description:
+        'Free tax preparation from IRS-certified volunteers for filers generally earning under about $67,000/year.',
+  },
+  {
+    name: 'LIHEAP (Home Energy Assistance)',
+    url: 'https://www.acf.hhs.gov/ocs/programs/liheap',
+    description:
+        'Federal program that helps eligible households pay heating and cooling bills, and covers weatherization in some states.',
+  },
+  {
+    name: 'Find a Credit Union',
+    url: 'https://www.mycreditunion.gov/consumer-tools/find-credit-union',
+    description:
+        'Credit unions often offer far better rates than payday loans for small emergency loans — search for one you can join.',
+  },
+];
 
-const Home = () => {
-  const { styles } = useStyles();
+export default function Home() {
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
+  const [advice, setAdvice] = useState<string>('');
+  const [currencySymbol, setCurrencySymbol] = useState<string>('$');
 
-  const courses = [
-    { title: 'Personal Finance & Budgeting',        icon: <WalletOutlined />,      path: '/personal-finance',  color: '#52c41a' },
-    { title: 'Investing | Stocks, ETFs, Dividends', icon: <StockOutlined />,       path: '/investing',         color: '#1890ff' },
-    { title: 'Cryptocurrency & Blockchain',         icon: <>&#8383;</>,            path: '/crypto',            color: '#f39c12' },
-    { title: 'Corporate Finance & Valuation',       icon: <BankOutlined />,        path: '/corporate-finance', color: '#722ed1' },
-    { title: 'Financial Accounting & Analysis',     icon: <FileTextOutlined />,    path: '/accounting',        color: '#eb2f96' },
-    { title: 'Economics | Micro & Macro',           icon: <RiseOutlined />,       path: '/economics',         color: '#13c2c2' },
-  ];
+  const getFinancialAdvice = async (values: FormValues) => {
+    setLoading(true);
+    setAdvice('');
+
+    try {
+      const response = await axios.post('/api/advice', {
+        ...values,
+        currencySymbol,
+      });
+      setAdvice(response.data.content);
+    } catch (error) {
+      message.error(
+          'Could not generate your plan right now. Please try again in a moment — or check the Free Resources tab in the meantime.'
+      );
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <>
-      {/* Hero */}
-      <div className={styles.hero}>
-        <Title level={1} style={{ color: 'white', fontSize: '56px', marginBottom: 24 }}>
-          Master Finance.<br />Completely Free. Forever.
-        </Title>
-        <Paragraph style={{ fontSize: '22px', color: 'rgba(255,255,255,0.9)', maxWidth: '800px', margin: '0 auto 40px'}}>
-          Professional-grade courses on personal finance, investing, crypto, valuation, accounting & economics |
-          with free Excel templates and zero ads.
-        </Paragraph>
-        <Space size={24}>
-          <Button type="primary" size="large" href="#courses" style={{ height: 56, padding: '0 40px', fontSize: '18px' }}>
-            Start Learning Now
-          </Button>
-          {/*<Button size="large" ghost style={{ height: 56, padding: '0 40px', fontSize: '18px' }}>*/}
-          {/*  <DownloadOutlined /> Free Templates*/}
-          {/*</Button>*/}
-        </Space>
-      </div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <Title level={1} className="flex items-center justify-center gap-3">
+              <RobotOutlined className="text-5xl text-blue-600" />
+              DimnyanFinance
+            </Title>
+            <Paragraph className="text-xl text-gray-600">
+              Your free personal financial planning assistant
+            </Paragraph>
+            <Alert
+                title="100% Free • No ads • Built for people earning under $50k/year"
+                type="success"
+                showIcon
+                className="mt-4 max-w-md mx-auto"
+            />
+          </div>
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '80px 20px' }}>
+          <Card>
+            <Tabs
+                defaultActiveKey="1"
+                centered
+                items={[
+                  {
+                    key: '1',
+                    label: (
+                        <span>
+                    <DollarCircleOutlined /> Get My Free Plan
+                  </span>
+                    ),
+                    children: (
+                        <>
+                          <Form form={form} layout="vertical" onFinish={getFinancialAdvice}>
+                            <div className="grid md:grid-cols-2 gap-4">
+                              <Form.Item label="Currency">
+                                <Select
+                                    onChange={(v) => setCurrencySymbol(v)}
+                                    options={[
+                                      { label: 'USD', value: '$' },
+                                      { label: 'IDR', value: 'Rp' },
+                                    ]}
+                                    value={currencySymbol}
+                                />
+                              </Form.Item>
+                              <Form.Item
+                                  name="income"
+                                  label="Monthly Take-Home Income"
+                                  rules={[{ required: true, message: 'Income is required' }]}
+                              >
+                                <Input prefix={currencySymbol} placeholder="2400" type="number" />
+                              </Form.Item>
+                              <Form.Item name="rent" label="Rent / Mortgage">
+                                <Input prefix={currencySymbol} placeholder="900" type="number" />
+                              </Form.Item>
+                              <Form.Item name="expenses" label="All Other Monthly Expenses">
+                                <Input prefix={currencySymbol} placeholder="1200" type="number" />
+                              </Form.Item>
+                              <Form.Item name="debt" label="Total Debt (credit cards, loans, etc)">
+                                <Input prefix={currencySymbol} placeholder="8000" type="number" />
+                              </Form.Item>
+                              <Form.Item name="debtType" label="Type of Debt (optional)">
+                                <Input placeholder="credit cards, medical, student loans" />
+                              </Form.Item>
+                              <Form.Item name="savings" label="Current Savings">
+                                <Input prefix={currencySymbol} placeholder="300" type="number" />
+                              </Form.Item>
+                            </div>
 
-        {/* Trust Signals */}
-        <Row gutter={[32, 48]} justify="center" style={{ marginBottom: 80 }}>
-          <Col xs={24} sm={8} style={{ textAlign: 'center' }}>
-            <CheckCircleFilled style={{ fontSize: 52, color: '#52c41a' }} />
-            <Title level={3}>100% Free</Title>
-            <Text>No registration • No ads • No paywall</Text>
-          </Col>
-          <Col xs={24} sm={8} style={{ textAlign: 'center' }}>
-            <CheckCircleFilled style={{ fontSize: 52, color: '#1890ff' }} />
-            <Title level={3}>Professional Level</Title>
-            <Text>Used by analysts, MBAs, CFA students</Text>
-          </Col>
-          <Col xs={24} sm={8} style={{ textAlign: 'center' }}>
-            <CheckCircleFilled style={{ fontSize: 52, color: '#722ed1' }} />
-            <Title level={3}>Free Excel Tools</Title>
-            <Text>DCF • LBO • Budget • Crypto Tracker</Text>
-          </Col>
-        </Row>
+                            <Form.Item name="goal" label="Your #1 Financial Goal (optional)">
+                              <Input.TextArea
+                                  rows={2}
+                                  placeholder="Get out of debt, build emergency fund, save for kids..."
+                              />
+                            </Form.Item>
 
-        {/* Course Grid */}
-        <div id="courses" className={"py-10"}>
-          <Title level={2} style={{ textAlign: 'center', marginBottom: 60 }}>
-            Choose Your Learning Path
-          </Title>
+                            <Button
+                                type="primary"
+                                size="large"
+                                block
+                                htmlType="submit"
+                                loading={loading}
+                                icon={<RobotOutlined />}
+                            >
+                              Get My Free Financial Plan
+                            </Button>
+                          </Form>
 
-          <Row gutter={[24, 32]}>
-            {courses.map((course) => (
-              <Col xs={24} sm={12} lg={8} key={course.title}>
-                <Card
-                  className={styles.card}
-                  styles={{
-                    body: { padding: '24px' },
-                  }}
-                  actions={[
-                    <Button key={'1'} type="link" href={course.path} style={{ fontWeight: 600 }}>
-                      Read More →
-                    </Button>,
-                  ]}
-                >
-                  <div className={styles.cardIcon} style={{ color: course.color }}>
-                    {course.icon}
-                  </div>
-                  <Meta
-                    title={<Title level={4} style={{ margin: 0 }}>{course.title}</Title>}
-                    description={
-                      <Text type="secondary">
-                        {course.title.includes('Personal') && 'Budgeting • Debt • Emergency Fund • Goals'}
-                        {course.title.includes('Investing') && 'Stocks • ETFs • Index Funds • Dividends'}
-                        {course.title.includes('Crypto') && 'Bitcoin • Ethereum • DeFi • Wallets'}
-                        {course.title.includes('Corporate') && 'DCF • LBO • Comps • M&A'}
-                        {course.title.includes('Accounting') && '3 Statements • Ratios • Red Flags'}
-                        {course.title.includes('Economics') && 'GDP • Inflation • Monetary Policy'}
-                      </Text>
-                    }
-                  />
-                  {/*<div style={{ marginTop: 16 }}>*/}
-                  {/*  <Tag color={course.color} style={{ borderRadius: 12, padding: '4px 12px' }}>*/}
-                  {/*    Free Templates Included*/}
-                  {/*  </Tag>*/}
-                  {/*</div>*/}
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </div>
+                          {loading && (
+                              <div className="text-center my-10">
+                                <Spin size="large" />
+                                <Paragraph className="mt-4">
+                                  Analyzing your situation...
+                                </Paragraph>
+                              </div>
+                          )}
 
-        {/* Final CTA */}
-        <Divider />
-        <div style={{ textAlign: 'center', padding: '60px 0 10px' }}>
-          <Title level={2}>Start building real wealth today</Title>
-          <Paragraph style={{ fontSize: '18px', color: '#595959', maxWidth: 700, margin: '0 auto 40px' }}>
-            No email. No credit card. Just the best free finance education on the internet.
+                          {advice && (
+                              <Card
+                                  className="mt-8 bg-blue-50"
+                                  title={
+                                    <Title level={3}>
+                                      <SaveOutlined /> Your Personalized Financial Plan
+                                    </Title>
+                                  }
+                              >
+                                <div className="prose prose-lg max-w-none text-gray-800">
+                                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                    {advice}
+                                  </ReactMarkdown>
+                                </div>
+                              </Card>
+                          )}
+                        </>
+                    ),
+                  },
+                  {
+                    key: '2',
+                    label: (
+                        <span>
+                    <ReadOutlined /> Free Resources
+                  </span>
+                    ),
+                    children: (
+                        <>
+                          <Title level={3}>Real Programs, No AI Needed</Title>
+                          <Paragraph>
+                            These are established government and nonprofit resources —
+                            worth checking regardless of what your AI-generated plan says.
+                          </Paragraph>
+                          <List
+                              itemLayout="vertical"
+                              dataSource={FREE_RESOURCES}
+                              renderItem={(item) => (
+                                  <List.Item>
+                                    <Text strong>
+                                      <LinkOutlined />{' '}
+                                      <a href={item.url} target="_blank" rel="noopener noreferrer">
+                                        {item.name}
+                                      </a>
+                                    </Text>
+                                    <Paragraph className="mt-1 mb-0 text-gray-600">
+                                      {item.description}
+                                    </Paragraph>
+                                  </List.Item>
+                              )}
+                          />
+                        </>
+                    ),
+                  },
+                  {
+                    key: '3',
+                    label: 'About',
+                    children: (
+                        <>
+                          <Title level={3}>Why This Exists</Title>
+                          <Paragraph>
+                            Traditional financial advisors charge $200–500/hour and
+                            require $250k+ in assets. This app brings{' '}
+                            <strong>financial-planning quality guidance</strong> to
+                            everyone — for free.
+                          </Paragraph>
+                          <Paragraph>
+                            We believe financial dignity should not have a paywall.
+                          </Paragraph>
+                        </>
+                    ),
+                  },
+                ]}
+            />
+          </Card>
+
+          <Paragraph className="text-center mt-10 text-gray-500">
+            Built with ❤️ using Next.js + Ant Design
           </Paragraph>
-          <Space size={20}>
-            <Button type="primary" size="large" icon={<WalletOutlined />} href="/personal-finance">
-              Start: Personal Finance
-            </Button>
-            <Button size="large" href="/investing">
-              Or Jump to Investing
-            </Button>
-          </Space>
-          <br /><br />
-          <Text type="secondary">Updated for 2025 • 100% free forever</Text>
         </div>
       </div>
-    </>
   );
-};
-
-export default Home;
+}

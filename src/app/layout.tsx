@@ -15,12 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "DimFinance",
-    template: "%s | DimFinance"
-  },
-  description: "100% free, high-quality finance courses and tools. Master budgeting, stock investing, cryptocurrency, financial modeling, DCF valuation, accounting, economics. no registration required",
-  icons: "/icons/my-icon.png",
+  title: "DimnyanFinance — Free Financial Planning",
+  description: "Free, AI-assisted financial planning built for people earning under $50k/year.",
 };
 
 export default function RootLayout({
