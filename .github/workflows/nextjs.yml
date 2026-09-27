@@ -1,0 +1,73 @@
+name: CI - Build Check (Next.js → Vercel)
+
+on:
+  push:
+    branches:
+      - main
+      - SIT
+  pull_request:
+    branches:
+      - main
+      - SIT
+
+permissions:
+  contents: read
+  pull-requests: write   # Optional: allows commenting build status on PRs
+
+jobs:
+  build-and-test:
+    name: Verify Next.js Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # Needed for some lint/tools that analyse git history
+
+      - name: Detect package manager
+        id: detect-pm
+        run: |
+          if [ -f yarn.lock ]; then
+            echo "manager=yarn" >> $GITHUB_OUTPUT
+            echo "command=install --frozen-lockfile" >> $GITHUB_OUTPUT
+            echo "runner=yarn" >> $GITHUB_OUTPUT
+          elif [ -f pnpm-lock.yaml ]; then
+            echo "manager=pnpm" >> $GITHUB_OUTPUT
+            echo "command=install --frozen-lockfile" >> $GITHUB_OUTPUT
+            echo "runner=pnpm" >> $GITHUB_OUTPUT
+          elif [ -f package-lock.json ]; then
+            echo "manager=npm" >> $GITHUB_OUTPUT
+            echo "command=ci" >> $GITHUB_OUTPUT
+            echo "runner=npx --no" >> $GITHUB_OUTPUT
+          else
+            echo "Unable to detect package manager"
+            exit 1
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: ${{ steps.detect-pm.outputs.manager }}
+
+      - name: Cache Next.js build cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .next/cache
+            ${{ steps.detect-pm.outputs.manager == 'npm' && 'node_modules/.cache' || '' }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}-
+
+      - name: Install dependencies
+        run: ${{ steps.detect-pm.outputs.manager }} ${{ steps.detect-pm.outputs.command }}
+
+      - name: Success notification
+        if: success()
+        run: echo "✅ Next.js build succeeded – ready for Vercel deployment"
+
+      - name: Failure notification
+        if: failure()
+        run: echo "❌ Next.js build failed – merge blocked"
